@@ -1,0 +1,10 @@
+.App{
+    text-align: center;
+}
+
+button:disabled{
+    cursor: not-allowed;
+    background-color: #ccc;
+    color: #444;
+
+}

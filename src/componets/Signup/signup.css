@@ -1,0 +1,38 @@
+
+.formControl{
+    margin-bottom: 20px;
+}
+input:focus{
+    outline: none;
+    border: 2px solid #6d28d9;
+}
+
+button{
+    padding: 5px 15px;
+}
+.error{
+    color: red;
+}
+
+.btn{
+    outline: none;
+    border: none;
+    padding: 6px 15px;
+    background-color: #ede9fe;
+    color: #6d28d9;
+    border-radius: 5px;  
+}
+
+.primary{
+    background-color: #6d28d9;
+    color: #fff;
+}
+
+.formContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+
