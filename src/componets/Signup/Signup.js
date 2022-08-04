@@ -6,6 +6,8 @@ import "./signup.css";
 import { signupUser } from "../../services/signupService";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthActions } from "../../Providers/AuthProvider";
+import { useQuery } from "../../hooks/useQuery";
 const initialValues = {
     name:"",
     email:"",
@@ -23,7 +25,10 @@ const validationSchema = Yup.object({
     passwordConfirm:Yup.string().required("passwordConfirm is Requiered").oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
 const SignupForm = () => {
+    const query = useQuery();
+    const redirect = query.get("redirect") || "/";
     const [error,setError] = useState(null);
+    const setAuth = useAuthActions();
     const navigate = useNavigate();
     console.log("navigate",navigate)
     const onSubmit = async(values) =>  {
@@ -36,8 +41,10 @@ const SignupForm = () => {
         }
         try {
             const {data} = await signupUser(userData);
+            setAuth(data);
+            // localStorage.setItem("authState",JSON.stringify(data));
             setError(null);
-            navigate("/");
+            navigate(redirect);
 
 
             
@@ -65,7 +72,7 @@ const SignupForm = () => {
                 <Input formik={formik} name="passwordConfirm" label="Password Confirmation" type="password"/>
                 <button style={{width:"100%"}} type="submit" disabled={!formik.isValid} className="btn primary">sign up</button>
                 {error && <p style={{color:"red"}}>{error}</p>}
-                <Link to="/login">
+                <Link to={`/login?redirect=${redirect}`}>
                     <p style={{marginTop:"15px"}}>already login?</p>
                 </Link>
             </form>

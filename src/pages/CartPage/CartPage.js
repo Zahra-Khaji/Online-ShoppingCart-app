@@ -74,10 +74,10 @@ const CartSummery = ({cart,total}) => {
                 <p>net price</p>
                 <p>{total} $</p>
             </div>
-            <Link to="/checkout">
+            <Link to="/signup?redirect=checkout">
             <button
              className={`${style.btn} ${style.primary}`} style={{marginTop:"20px",width:"100%"}}>
-            go to check
+            go to checkout
             </button>
             </Link>
         </section>

@@ -9,11 +9,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import CheckOutPage from "./pages/CheckOutPage/CheckOutPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import AuthProvider from "./Providers/AuthProvider";
   
 
 const App = () => {
     return ( 
         <Router>
+            <AuthProvider>
             <CartProvider>
                 <ToastContainer/>
                 <Routes>
@@ -22,9 +24,9 @@ const App = () => {
                     <Route path="/cart" element={<CartPage/>} />
                     <Route path="/signup" element={<SignupPage/>} />
                     <Route path="/login" element={<LoginPage/>} />
-
                 </Routes>
             </CartProvider>
+            </AuthProvider>
                 
         </Router>
     

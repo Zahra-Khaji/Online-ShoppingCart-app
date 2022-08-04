@@ -6,6 +6,8 @@ import { Link, Navigate} from "react-router-dom";
 import { loginUser } from "../../services/loginService";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthActions } from "../../Providers/AuthProvider";
+import { useQuery } from "../../hooks/useQuery";
 
 
 
@@ -28,13 +30,18 @@ const validationSchema = Yup.object({
 const Login = () => {
     const [error,setError] = useState(null);
     const navigate = useNavigate();
+    const setAuth = useAuthActions();
+    const query = useQuery();
+    const redirect = query.get("redirect") || "/";
 
     const onSubmit = async(values) =>  {
 
         try {
             const {data} = await loginUser(values);
+            setAuth(data);
+            // localStorage.setItem("authState",JSON.stringify(data));
             setError(null);
-            navigate("/");
+            navigate(redirect);
             
             
         } catch (error) {
@@ -60,7 +67,7 @@ const Login = () => {
                 <button style={{width:"100%"}} type="submit" disabled={!formik.isValid} className="btn primary">login</button>
                 {error && <p style={{color:"red"}}>{error}</p>}
 
-                <Link to="/signup">
+                <Link to={`/signup?redirect=${redirect}`}>
                     <p style={{marginTop:"15px"}}>not signup yet?</p>
                 </Link>
 
